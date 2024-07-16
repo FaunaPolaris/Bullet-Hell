@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://b8tkkdotipjku"]
+
+[ext_resource type="Texture2D" uid="uid://djcf7bbajpgpp" path="res://assets/player.png" id="1_3veig"]
+[ext_resource type="Script" path="res://scenes/player.gd" id="1_cvefo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2gvld"]
+atlas = ExtResource("1_3veig")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5qer"]
+atlas = ExtResource("1_3veig")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1xda"]
+atlas = ExtResource("1_3veig")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4y80w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2gvld")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5qer")
+}],
+"loop": true,
+"name": &"leftTilt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d1xda")
+}],
+"loop": true,
+"name": &"rightTilt",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dwxjs"]
+radius = 3.5
+height = 12.0
+
+[node name="Player" type="CharacterBody2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_cvefo")
+
+[node name="ship" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_4y80w")
+
+[node name="vision" type="Camera2D" parent="."]
+
+[node name="hit" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("CapsuleShape2D_dwxjs")

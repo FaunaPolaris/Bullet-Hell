@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2a7gq0pmdhs5"]
+
+[ext_resource type="Texture2D" uid="uid://cmtgo8ojb1lt5" path="res://assets/Background1.png" id="1_1qqg0"]
+[ext_resource type="Texture2D" uid="uid://8ploc54yltsf" path="res://assets/Background2.png" id="2_65uok"]
+[ext_resource type="Texture2D" uid="uid://bw2kblwiyjwj5" path="res://assets/Background3.png" id="3_btf23"]
+
+[node name="Game" type="Node2D"]
+
+[node name="space" type="ParallaxBackground" parent="."]
+
+[node name="parallax" type="ParallaxLayer" parent="space"]
+texture_filter = 1
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(1920, 1080)
+
+[node name="black" type="Sprite2D" parent="space/parallax"]
+texture_filter = 1
+texture_repeat = 1
+scale = Vector2(5, 5)
+texture = ExtResource("1_1qqg0")
+region_rect = Rect2(0, 0, 1920, 1080)
+
+[node name="parallax1" type="ParallaxLayer" parent="space"]
+texture_filter = 1
+motion_scale = Vector2(1.6, 1.6)
+motion_mirroring = Vector2(1920, 1080)
+
+[node name="farStars" type="Sprite2D" parent="space/parallax1"]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("2_65uok")
+region_rect = Rect2(0, 0, 1920, 1080)
+
+[node name="parallax2" type="ParallaxLayer" parent="space"]
+texture_filter = 1
+motion_scale = Vector2(2.8, 2.8)
+motion_mirroring = Vector2(1920, 1080)
+
+[node name="nearStars" type="Sprite2D" parent="space/parallax2"]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("3_btf23")
+region_rect = Rect2(0, 0, 1920, 1080)
