@@ -1,0 +1,52 @@
+[gd_scene load_steps=9 format=3 uid="uid://u483glit5gnh"]
+
+[ext_resource type="Script" path="res://scripts/map_limits.gd" id="1_b3dlp"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x8sej"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u4bcq"]
+size = Vector2(8600, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rmu0a"]
+size = Vector2(8600, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2p0qj"]
+size = Vector2(20, 8600)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kfama"]
+size = Vector2(20, 8600)
+
+[sub_resource type="Gradient" id="Gradient_1urj4"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_j3kq5"]
+gradient = SubResource("Gradient_1urj4")
+
+[node name="mapLimits" type="Node2D"]
+script = ExtResource("1_b3dlp")
+
+[node name="walls" type="StaticBody2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_x8sej")
+
+[node name="topWall" type="CollisionShape2D" parent="walls"]
+position = Vector2(0, -4300)
+shape = SubResource("RectangleShape2D_u4bcq")
+
+[node name="bottomWall" type="CollisionShape2D" parent="walls"]
+position = Vector2(0, 4300)
+shape = SubResource("RectangleShape2D_rmu0a")
+
+[node name="leftWall" type="CollisionShape2D" parent="walls"]
+position = Vector2(-4300, 0)
+shape = SubResource("RectangleShape2D_2p0qj")
+
+[node name="rigthWall" type="CollisionShape2D" parent="walls"]
+position = Vector2(4300, 0)
+shape = SubResource("RectangleShape2D_kfama")
+
+[node name="debug" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(24, -4068)
+scale = Vector2(98.25, 2.5)
+texture = SubResource("GradientTexture2D_j3kq5")
