@@ -51,7 +51,7 @@ animations = [{
 
 [node name="bullet" type="Area2D"]
 collision_layer = 8
-collision_mask = 6
+collision_mask = 38
 script = ExtResource("1_nvv4p")
 
 [node name="shape" type="CollisionShape2D" parent="."]
@@ -60,3 +60,10 @@ shape = SubResource("CircleShape2D_cli12")
 [node name="art" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_vaanu")
+
+[node name="lifespam" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="lifespam" to="." method="_on_lifespam_timeout"]

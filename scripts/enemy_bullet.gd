@@ -1,10 +1,8 @@
 extends Area2D
 
-const	SPEED = Vector2(0, -15)
-var		acceleration = Vector2.ZERO
 
-func	_ready():
-	$art.play("default")
+const	SPEED = Vector2(0, -8)
+var		acceleration = Vector2.ZERO
 
 func	_process(delta):
 	acceleration = SPEED + Vector2.ONE * delta

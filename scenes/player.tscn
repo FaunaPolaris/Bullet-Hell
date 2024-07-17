@@ -90,13 +90,13 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Gradient" id="Gradient_r1sod"]
+[sub_resource type="Gradient" id="Gradient_2gvk0"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ifilr"]
-gradient = SubResource("Gradient_r1sod")
+gradient = SubResource("Gradient_2gvk0")
 width = 1
-height = 10
+height = 7
 
 [sub_resource type="Gradient" id="Gradient_7lp3o"]
 offsets = PackedFloat32Array(0, 0.580357)
@@ -137,7 +137,7 @@ position_smoothing_enabled = true
 position_smoothing_speed = 12.0
 
 [node name="collision" type="Area2D" parent="."]
-collision_mask = 2
+collision_mask = 0
 
 [node name="body" type="CollisionShape2D" parent="collision"]
 position = Vector2(0, -1)
@@ -162,7 +162,7 @@ gravity = Vector2(0, 0)
 color_ramp = SubResource("Gradient_7lp3o")
 
 [node name="bullet_cooldown" type="Timer" parent="."]
-autostart = true
+one_shot = true
 
 [node name="hurt_effect" type="Sprite2D" parent="."]
 visible = false

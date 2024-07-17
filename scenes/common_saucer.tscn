@@ -1,0 +1,115 @@
+[gd_scene load_steps=13 format=3 uid="uid://bml14wgjb76nq"]
+
+[ext_resource type="Texture2D" uid="uid://d2dbcdvsl81f6" path="res://assets/commonSaucer.png" id="1_br2ml"]
+[ext_resource type="Script" path="res://scripts/common_saucer.gd" id="1_hicxp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3ewgk"]
+radius = 14.0357
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qko67"]
+atlas = ExtResource("1_br2ml")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e0qib"]
+atlas = ExtResource("1_br2ml")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pfmlf"]
+atlas = ExtResource("1_br2ml")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dww0"]
+atlas = ExtResource("1_br2ml")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fmtk7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qko67")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e0qib")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pfmlf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dww0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ldxye"]
+radius = 244.051
+
+[sub_resource type="Gradient" id="Gradient_ixstk"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_570cy"]
+gradient = SubResource("Gradient_ixstk")
+width = 1
+height = 7
+
+[sub_resource type="Gradient" id="Gradient_28na6"]
+offsets = PackedFloat32Array(0, 0.580357)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[node name="commonSaucer" type="Area2D"]
+collision_layer = 32
+collision_mask = 9
+script = ExtResource("1_hicxp")
+
+[node name="collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3ewgk")
+
+[node name="ship" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_fmtk7")
+autoplay = "default"
+frame = 3
+frame_progress = 0.734126
+
+[node name="player_looker" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="range" type="CollisionShape2D" parent="player_looker"]
+visible = false
+shape = SubResource("CircleShape2D_ldxye")
+
+[node name="asteroid_looker" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 1026
+
+[node name="range" type="CollisionShape2D" parent="asteroid_looker"]
+shape = SubResource("CircleShape2D_ldxye")
+
+[node name="ears" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 32
+
+[node name="range" type="CollisionShape2D" parent="ears"]
+shape = SubResource("CircleShape2D_ldxye")
+
+[node name="bullet_cooldown" type="Timer" parent="."]
+wait_time = 6.0
+autostart = true
+
+[node name="trail" type="CPUParticles2D" parent="."]
+position = Vector2(0, 13)
+amount = 24
+lifetime = 3.0
+texture = SubResource("GradientTexture2D_570cy")
+particle_flag_align_y = true
+gravity = Vector2(0, 0)
+color_ramp = SubResource("Gradient_28na6")
+
+[node name="think_again" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="bullet_cooldown" to="." method="_on_bullet_cooldown_timeout"]
+[connection signal="timeout" from="think_again" to="." method="_on_think_again_timeout"]

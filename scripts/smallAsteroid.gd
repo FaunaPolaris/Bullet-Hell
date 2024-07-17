@@ -1,10 +1,12 @@
 extends StaticBody2D
 
 var has_hit_something : bool = false
+var	loot = preload("res://scenes/debree.tscn")
 
 var initial_acceleration = Vector2(0, randf_range(-3, -.5))
 var initial_rotation = randf_range(-360, 360)
 var	acceleration : Vector2
+var	is_collectble : bool = false
 
 func _ready():
 	$art.play("default")
@@ -23,4 +25,7 @@ func _on_art_animation_finished():
 	if has_hit_something:
 		print("asteroid destroyed")
 		get_parent().asteroid_count -= 1
+		var drop = loot.instantiate()
+		drop.position = global_position
+		get_parent().add_child(drop)
 		queue_free()

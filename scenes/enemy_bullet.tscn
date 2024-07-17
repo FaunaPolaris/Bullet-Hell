@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://dxj5j7x53p3kc"]
+
+[ext_resource type="Texture2D" uid="uid://bqvxq8ba7jv74" path="res://assets/enemyBullets.png" id="1_qghs4"]
+[ext_resource type="Script" path="res://scripts/enemy_bullet.gd" id="1_vq5q1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bw46x"]
+
+[sub_resource type="Gradient" id="Gradient_r1sod"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xwi7k"]
+gradient = SubResource("Gradient_r1sod")
+width = 1
+height = 7
+
+[sub_resource type="Gradient" id="Gradient_hqm7j"]
+offsets = PackedFloat32Array(0, 0.580357)
+colors = PackedColorArray(0.56946, 0.179275, 0, 1, 0, 0, 0, 1)
+
+[node name="enemyBullet" type="Area2D"]
+collision_layer = 64
+collision_mask = 3
+script = ExtResource("1_vq5q1")
+
+[node name="shape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bw46x")
+
+[node name="art" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("1_qghs4")
+
+[node name="trail" type="CPUParticles2D" parent="art"]
+position = Vector2(0, 5.5)
+amount = 12
+lifetime = 0.4
+texture = SubResource("GradientTexture2D_xwi7k")
+particle_flag_align_y = true
+gravity = Vector2(0, 0)
+color_ramp = SubResource("Gradient_hqm7j")
+
+[node name="lifespam" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="lifespam" to="." method="_on_lifespam_timeout"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://crtup4omry7yw"]
 
 [ext_resource type="Texture2D" uid="uid://d0lvrrtftant0" path="res://assets/mediumAsteroid.png" id="1_ir8d2"]
-[ext_resource type="Script" path="res://scenes/mediumAsteroid.gd" id="1_uywgy"]
+[ext_resource type="Script" path="res://scripts/mediumAsteroid.gd" id="1_uywgy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3gtwr"]
 radius = 9.0
@@ -107,7 +107,7 @@ sprite_frames = SubResource("SpriteFrames_xw74a")
 
 [node name="collision" type="Area2D" parent="."]
 collision_layer = 2
-collision_mask = 13
+collision_mask = 237
 
 [node name="body" type="CollisionShape2D" parent="collision"]
 shape = SubResource("CircleShape2D_ih302")

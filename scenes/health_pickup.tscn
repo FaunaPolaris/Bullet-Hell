@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://br1grlu8dn175"]
+
+[ext_resource type="Texture2D" uid="uid://d2vskt5ocpekn" path="res://assets/healthPickup.png" id="1_b2aov"]
+[ext_resource type="Script" path="res://scripts/health_pickup.gd" id="1_fxfv3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pv7x2"]
+size = Vector2(28, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3u8q"]
+atlas = ExtResource("1_b2aov")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gnv6u"]
+atlas = ExtResource("1_b2aov")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bwxy1"]
+atlas = ExtResource("1_b2aov")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pxk04"]
+atlas = ExtResource("1_b2aov")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_stjag"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3u8q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gnv6u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bwxy1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pxk04")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="HealthPickup" type="Area2D"]
+collision_layer = 16
+script = ExtResource("1_fxfv3")
+
+[node name="shape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_pv7x2")
+
+[node name="art" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_stjag")
