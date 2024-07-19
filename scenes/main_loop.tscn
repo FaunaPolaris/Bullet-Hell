@@ -1,20 +1,37 @@
-[gd_scene load_steps=6 format=3 uid="uid://2g5kq156ul33"]
+[gd_scene load_steps=5 format=3 uid="uid://2g5kq156ul33"]
 
 [ext_resource type="Script" path="res://scripts/main_loop.gd" id="1_h323b"]
 [ext_resource type="PackedScene" uid="uid://b8tkkdotipjku" path="res://scenes/player.tscn" id="1_yhck0"]
 [ext_resource type="PackedScene" uid="uid://d2a7gq0pmdhs5" path="res://scenes/background.tscn" id="2_n18so"]
 [ext_resource type="PackedScene" uid="uid://u483glit5gnh" path="res://scenes/map_limits.tscn" id="3_7wd05"]
-[ext_resource type="PackedScene" uid="uid://nkiinc77mk5k" path="res://scenes/mothership.tscn" id="5_wyqab"]
 
 [node name="mainLoop" type="Node2D"]
 script = ExtResource("1_h323b")
 
 [node name="Player" parent="." instance=ExtResource("1_yhck0")]
 
+[node name="alien_counter" type="Label" parent="Player"]
+offset_left = -284.5
+offset_top = -159.0
+offset_right = -182.5
+offset_bottom = -136.0
+text = "Aliens killed: "
+horizontal_alignment = 1
+
+[node name="counts" type="Label" parent="Player/alien_counter"]
+layout_mode = 0
+offset_left = 103.0
+offset_top = 1.0
+offset_right = 143.0
+offset_bottom = 24.0
+text = "0"
+
 [node name="Game" parent="." instance=ExtResource("2_n18so")]
 
 [node name="mapLimits" parent="." instance=ExtResource("3_7wd05")]
 position = Vector2(144, 235)
 
-[node name="mothership" parent="." instance=ExtResource("5_wyqab")]
-position = Vector2(211, 150)
+[node name="spawn" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="spawn" to="." method="_on_spawn_timeout"]

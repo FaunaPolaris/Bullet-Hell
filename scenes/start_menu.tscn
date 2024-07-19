@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://majnx1tho5ef"]
+
+[ext_resource type="PackedScene" uid="uid://d2a7gq0pmdhs5" path="res://scenes/background.tscn" id="1_a2ufv"]
+[ext_resource type="Script" path="res://scenes/start_menu.gd" id="1_lu8a8"]
+[ext_resource type="Texture2D" uid="uid://bxlskpv2gbofp" path="res://assets/Logo.png" id="2_km3n7"]
+[ext_resource type="Texture2D" uid="uid://dvgguupjlg75h" path="res://assets/Tutorial.png" id="3_f8k0b"]
+
+[node name="start_menu" type="Node2D"]
+script = ExtResource("1_lu8a8")
+
+[node name="Game" parent="." instance=ExtResource("1_a2ufv")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Logo" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -160)
+scale = Vector2(4, 4)
+texture = ExtResource("2_km3n7")
+
+[node name="tutorial" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 145)
+scale = Vector2(3, 3)
+texture = ExtResource("3_f8k0b")

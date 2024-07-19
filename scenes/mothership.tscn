@@ -1,7 +1,8 @@
-[gd_scene load_steps=24 format=3 uid="uid://nkiinc77mk5k"]
+[gd_scene load_steps=29 format=3 uid="uid://nkiinc77mk5k"]
 
 [ext_resource type="Texture2D" uid="uid://chpnniaacnecu" path="res://assets/mothership.png" id="1_4vetl"]
-[ext_resource type="Script" path="res://scenes/mothership.gd" id="1_cfcnc"]
+[ext_resource type="Script" path="res://scripts/mothership.gd" id="1_cfcnc"]
+[ext_resource type="Texture2D" uid="uid://djcf7bbajpgpp" path="res://assets/player.png" id="3_3mrqp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gab63"]
 atlas = ExtResource("1_4vetl")
@@ -38,6 +39,26 @@ region = Rect2(192, 0, 96, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_qxiar"]
 atlas = ExtResource("1_4vetl")
 region = Rect2(288, 0, 96, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tfri8"]
+atlas = ExtResource("3_3mrqp")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_as4ul"]
+atlas = ExtResource("3_3mrqp")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_24k3y"]
+atlas = ExtResource("3_3mrqp")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iox75"]
+atlas = ExtResource("3_3mrqp")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4wcvr"]
+atlas = ExtResource("3_3mrqp")
+region = Rect2(64, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o4uya"]
 atlas = ExtResource("1_4vetl")
@@ -100,6 +121,26 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_tfri8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_as4ul")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_24k3y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iox75")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4wcvr")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_o4uya")
 }, {
 "duration": 1.0,
@@ -123,9 +164,6 @@ animations = [{
 radius = 52.0
 height = 164.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xk5ra"]
-size = Vector2(163, 55)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_trgfi"]
 radius = 669.012
 
@@ -143,30 +181,19 @@ colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [node name="mothership" type="Area2D"]
 collision_layer = 128
-collision_mask = 12
+collision_mask = 8
 script = ExtResource("1_cfcnc")
 
 [node name="ship" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_t2ocq")
-animation = &"open hatch"
 autoplay = "default"
-frame = 4
-frame_progress = 1.0
 
 [node name="collision" type="CollisionShape2D" parent="."]
 position = Vector2(1, -4)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_8knfy")
-
-[node name="cargo" type="Area2D" parent="."]
-collision_layer = 256
-collision_mask = 32
-
-[node name="shape" type="CollisionShape2D" parent="cargo"]
-position = Vector2(1.5, 17.5)
-shape = SubResource("RectangleShape2D_xk5ra")
 
 [node name="vision" type="Area2D" parent="."]
 collision_layer = 0
@@ -175,18 +202,9 @@ collision_mask = 290
 [node name="range" type="CollisionShape2D" parent="vision"]
 shape = SubResource("CircleShape2D_trgfi")
 
-[node name="trail" type="CPUParticles2D" parent="."]
-position = Vector2(-50, 48)
-amount = 24
-lifetime = 10.0
-texture = SubResource("GradientTexture2D_u0mgq")
-particle_flag_align_y = true
-gravity = Vector2(0, 0)
-color_ramp = SubResource("Gradient_gc80l")
-
 [node name="trail2" type="CPUParticles2D" parent="."]
-position = Vector2(-25, 48)
-amount = 24
+position = Vector2(-40, 48)
+amount = 12
 lifetime = 10.0
 texture = SubResource("GradientTexture2D_u0mgq")
 particle_flag_align_y = true
@@ -194,21 +212,17 @@ gravity = Vector2(0, 0)
 color_ramp = SubResource("Gradient_gc80l")
 
 [node name="trail3" type="CPUParticles2D" parent="."]
-position = Vector2(25, 48)
-amount = 24
+position = Vector2(40, 48)
+amount = 12
 lifetime = 10.0
 texture = SubResource("GradientTexture2D_u0mgq")
 particle_flag_align_y = true
 gravity = Vector2(0, 0)
 color_ramp = SubResource("Gradient_gc80l")
 
-[node name="trail4" type="CPUParticles2D" parent="."]
-position = Vector2(50, 48)
-amount = 24
-lifetime = 10.0
-texture = SubResource("GradientTexture2D_u0mgq")
-particle_flag_align_y = true
-gravity = Vector2(0, 0)
-color_ramp = SubResource("Gradient_gc80l")
+[node name="Summon" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
 
 [connection signal="animation_finished" from="ship" to="." method="_on_ship_animation_finished"]
+[connection signal="timeout" from="Summon" to="." method="_on_summon_timeout"]

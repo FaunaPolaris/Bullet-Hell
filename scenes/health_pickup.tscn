@@ -53,3 +53,9 @@ shape = SubResource("RectangleShape2D_pv7x2")
 texture_filter = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_stjag")
+
+[node name="lifespam" type="Timer" parent="."]
+wait_time = 60.0
+autostart = true
+
+[connection signal="timeout" from="lifespam" to="." method="_on_lifespam_timeout"]

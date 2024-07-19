@@ -20,14 +20,14 @@ func _process(delta):
 		getHit()
 
 func	getHit():
-	if $collision.has_overlapping_areas():
+	if $ship/collision.has_overlapping_areas():
 			health -= 1
 			$hurt_effect.show()
 			$hurt_effect/Timer.start()
 	if health <= 0:
 		$ship.play("explode")
-		$trail.hide()
-		$trail2.hide()
+		$ship/trail.hide()
+		$ship/trail2.hide()
 		is_destroyed = true
 
 func	shoot():
@@ -52,8 +52,8 @@ func	shootFront(amount : int):
 		i = 0
 	for shot in amount:
 		projectile[shot] = bullet.instantiate()
-		projectile[shot].position = global_position + Vector2(i, -32).rotated(rotation)
-		projectile[shot].rotation = global_rotation
+		projectile[shot].position = global_position + Vector2(i, -32).rotated($ship.rotation)
+		projectile[shot].rotation = $ship.global_rotation
 		get_parent().add_child(projectile[shot])
 		i += 8
 	$bullet_cooldown.start()
@@ -73,8 +73,8 @@ func	shootSideways(amount : int, side : int) -> void:
 		distance = 8
 	for shot in amount:
 		projectile[shot] = bullet.instantiate()
-		projectile[shot].position = global_position + Vector2((16 * side), i).rotated(rotation)
-		projectile[shot].rotation_degrees = global_rotation_degrees + (75 * side)
+		projectile[shot].position = global_position + Vector2((16 * side), i).rotated($ship.rotation)
+		projectile[shot].rotation_degrees = $ship.global_rotation_degrees + (75 * side)
 		get_parent().add_child(projectile[shot])
 		i += distance
 	$bullet_cooldown.start()
@@ -91,8 +91,8 @@ func	shootBackAngle(angle : int, amount : int) -> void:
 		current_angle -= angle
 	for shot in amount:
 		projectile[shot] = bullet.instantiate()
-		projectile[shot].position = global_position + Vector2(0, 24).rotated(rotation)
-		projectile[shot].rotation_degrees = global_rotation_degrees + current_angle + 180
+		projectile[shot].position = global_position + Vector2(0, 24).rotated($ship.rotation)
+		projectile[shot].rotation_degrees = $ship.global_rotation_degrees + current_angle + 180
 		get_parent().add_child(projectile[shot])
 		current_angle += angle
 	$bullet_cooldown.start()
@@ -107,18 +107,18 @@ func	move(delta : float):
 			acceleration += speed_lost * delta
 	if Input.is_action_pressed("leftTilt"):
 		$ship.play("leftTilt")
-		rotation_degrees -= -(acceleration.y * .4584)
-		if rotation_degrees > 360:
-			rotation_degrees = 0
+		$ship.rotation_degrees -= -(acceleration.y * .4584)
 	elif Input.is_action_pressed("rightTilt"):
 		$ship.play("rightTilt")
-		rotation_degrees += -(acceleration.y * .4584)
-		if rotation_degrees < -360:
-			rotation_degrees = 0
+		$ship.rotation_degrees += -(acceleration.y * .4584)
 	else:
 		$ship.play("default")
-	move_and_collide(acceleration.rotated(rotation))
+	move_and_collide(acceleration.rotated($ship.rotation))
 
 
 func _on_bullet_cooldown_timeout():
 	has_bullet = true
+
+
+func _on_ship_animation_finished():
+	get_tree().change_scene_to_file("res://scenes/start_menu.tscn")

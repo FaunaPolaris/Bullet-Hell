@@ -31,6 +31,18 @@ scale = Vector2(2, 2)
 texture = ExtResource("2_65uok")
 region_rect = Rect2(0, 0, 1920, 1080)
 
+[node name="parallax3" type="ParallaxLayer" parent="space"]
+texture_filter = 1
+motion_scale = Vector2(0.3, 0.3)
+motion_mirroring = Vector2(1920, 1080)
+
+[node name="farStars" type="Sprite2D" parent="space/parallax3"]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("2_65uok")
+flip_h = true
+region_rect = Rect2(0, 0, 1920, 1080)
+
 [node name="parallax2" type="ParallaxLayer" parent="space"]
 texture_filter = 1
 motion_scale = Vector2(0.9, 0.9)

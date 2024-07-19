@@ -14,3 +14,8 @@ func _process(_delta):
 			Player.health += 1
 			get_parent().pickup_count -= 1
 			queue_free()
+
+
+func _on_lifespam_timeout():
+	get_parent().pickup_count -= 1
+	queue_free()
